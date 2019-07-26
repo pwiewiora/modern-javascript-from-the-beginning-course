@@ -12,7 +12,7 @@ li.id = 'new-item';
 li.setAttribute('title', 'New item');
 
 // Create text node and append
-li.appendChild(document.createTextNode('Appended list item'));
+li.appendChild(document.createTextNode('Appended list item '));
 
 // Create new link element
 const link = document.createElement('a');
