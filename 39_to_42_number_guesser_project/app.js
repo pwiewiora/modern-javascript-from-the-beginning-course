@@ -34,17 +34,37 @@ if(isNaN(guess) || guess < min || guess > max){
 }
 // Check if won
 if(guess === winningNum){
-    // Disable input
-    guessInput.disabled = true;
-    // Change border color
-    guessInput.style.borderColor = 'green';
-    // Set message
-    setMessage(`${winningNum} is correct! YOU WIN!`, 'green');
+    gameOver(true, `${winningNum} is correct! YOU WIN!`);    
 } else {
+    // Wrong number
+    guessesLeft -= 1;
+
+    if(guessesLeft === 0){
+       gameOver(false, `Game over! YOU LOST! The correct number was ${winningNum}`);
+    } else {
+        // Game continues - answer wrong
+        // Change border color
+        guessInput.style.borderColor = 'red';
+        // Clear input
+        guessInput.value = '';
+        // Tell user its the wrong number
+        setMessage(`${guess} is not correct. ${guessesLeft} guesses left`, 'red');
+
+    }
 }});
 
 // Set message
 function setMessage(msg, color){
     message.style.color = color;
     message.textContent = msg;
+}
+
+// Game over function to avoid repeating code
+function gameOver(won, msg){
+    let color;
+    won === true ? color = 'green' : color = 'red';
+    guessInput.disabled = true;
+    guessInput.style.borderColor = color;
+    message.style.color = color;
+    setMessage(msg);
 }
